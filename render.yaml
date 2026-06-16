@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: eve-cafe
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn server:app
+    envVars:
+      - key: DB_PATH
+        value: /data/eve_cafe.db
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        value: thisisbusiness   # change this in Render dashboard
+    disk:
+      name: eve-cafe-db
+      mountPath: /data
+      sizeGB: 1
